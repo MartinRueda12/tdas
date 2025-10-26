@@ -104,7 +104,7 @@ public interface PositionList<E> extends Iterable<E>
 	 */
 	public E set(Position<E> p, E element);
 	
-	/**
+	/*
 	 * Devuelve un un iterador de todos los elementos de la lista.
 	 * @return Un iterador de todos los elementos de la lista.
 	 */

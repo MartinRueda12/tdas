@@ -17,7 +17,7 @@ public class ListTest {
 	 */
 
 	private PositionList<String> getList() {
-		return new ListaDoblementeEnlazada<String>();
+		return new Mylist<String>();
 	}
 
 	@Before

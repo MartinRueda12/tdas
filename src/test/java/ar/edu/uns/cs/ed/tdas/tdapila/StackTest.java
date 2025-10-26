@@ -12,15 +12,16 @@ import org.junit.*;                         //For tags
 import static org.junit.Assert.*;           //For assertions
 
 import ar.edu.uns.cs.ed.tdas.excepciones.EmptyStackException;
+import ar.edu.uns.cs.ed.tdas.tdapila.Stack;
 
 public class StackTest {
-	private Stack<String> s; //interface
+	private PilaConArreglo<String> s; //interface
 	private String n1,n2,n3;
  
 
-	private Stack<String> getStack()
+	private PilaConArreglo<String> getStack()
 	{
-	  return new PilaConLista<String>();
+	  return new PilaConArreglo<String>();
 	  
 	 }
 	

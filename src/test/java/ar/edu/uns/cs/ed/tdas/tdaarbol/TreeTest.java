@@ -7,12 +7,14 @@ import java.util.Iterator;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import ar.edu.uns.cs.ed.tdas.tdacola.ColaConArreglo;
 import ar.edu.uns.cs.ed.tdas.tdacola.Queue;
+import ar.edu.uns.cs.ed.tdas.tdalista.Mylist;
 import ar.edu.uns.cs.ed.tdas.tdalista.PositionList;
 import ar.edu.uns.cs.ed.tdas.Position;
 import ar.edu.uns.cs.ed.tdas.excepciones.*;
-import ar.edu.uns.cs.ed.tdas.tdacola.ArrayQueue;
-import ar.edu.uns.cs.ed.tdas.tdalista.ListaDoblementeEnlazada;
+
 
 
 public class TreeTest {
@@ -23,7 +25,7 @@ public class TreeTest {
 	 * Inicializa el árbol antes de cada test individual
 	 */
 	private Tree<Integer> getTree() {
-		return new Arbol<Integer>();
+		return new TDAArbol<Integer>();
 	}
 
 	@Before
@@ -371,7 +373,7 @@ public class TreeTest {
 			T.createRoot(1);
 			hijos = T.children(T.root()).iterator();
 			assertTrue(
-					"children() no funciona correctamente para un árbol con un solo elemento, la lista de hijos de la raíz no es vac�a.",
+					"children() no funciona correctamente para un árbol con un solo elemento, la lista de hijos de la raíz no es vac a.",
 					!hijos.hasNext());
 		} catch (InvalidOperationException e) {
 			fail("createRoot() no debería lanzar InvalidOperationException con un árbol vacío");
@@ -387,7 +389,7 @@ public class TreeTest {
 		// chequearHijosNiveles();
 		Position<Integer> p;
 		int i = 1;
-		Queue<Position<Integer>> cola = new ArrayQueue<Position<Integer>>();
+		Queue<Position<Integer>> cola = new ColaConArreglo<Position<Integer>>();
 		try {
 			p = T.root();
 		} catch (EmptyTreeException e1) {
@@ -414,11 +416,11 @@ public class TreeTest {
 						hijos = T.children(p).iterator();
 						if (T.isExternal(p))
 							assertFalse(
-									"children no funciona correctamente para listas de hijos vac�as.",
+									"children no funciona correctamente para listas de hijos vac as.",
 									hijos.hasNext());
 						else {
 							assertTrue(
-									"children no funciona correctamente para listas de hijos vac�as.",
+									"children no funciona correctamente para listas de hijos vac as.",
 									hijos.hasNext());
 							while (hijos.hasNext())
 								cola.enqueue(hijos.next());
@@ -439,7 +441,7 @@ public class TreeTest {
 		cargarArbol(T);
 		Position<Integer> p;
 		Iterator<Position<Integer>> hijos = null;
-		Queue<Position<Integer>> cola = new ArrayQueue<Position<Integer>>();
+		Queue<Position<Integer>> cola = new ColaConArreglo<Position<Integer>>();
 		// Posición inválida
 		try {
 			T.isExternal(null);
@@ -502,7 +504,7 @@ public class TreeTest {
 		cargarArbol(T);
 		Position<Integer> p = null;
 		Iterator<Position<Integer>> hijos = null;
-		Queue<Position<Integer>> cola = new ArrayQueue<Position<Integer>>();
+		Queue<Position<Integer>> cola = new ColaConArreglo<Position<Integer>>();
 		try {
 			T.isRoot(null);
 			fail("isRoot debería lanzar la excepción InvalidPositionException con una posición inválida");
@@ -810,13 +812,13 @@ public class TreeTest {
 			T.addBefore(h1, h2, 5);
 			chequearPadre(T.root());
 			// caso de prueba para los hijos de root
-			hijosRoot = new ListaDoblementeEnlazada<Integer>();
+			hijosRoot = new Mylist<Integer>();
 			hijosRoot.addFirst(2);
 			hijosRoot.addFirst(7);
 			hijosRoot.addFirst(3);
 			hijosRoot.addFirst(6);
 			hijosRoot.addFirst(9);
-			hijos = new ListaDoblementeEnlazada<Integer>();
+			hijos = new Mylist<Integer>();
 			for (Position<Integer> n : T.children(T.root())) {
 				hijos.addLast(n.element());
 			}
@@ -830,10 +832,10 @@ public class TreeTest {
 
 			}
 			// caso de prueba para los hijos de h1
-			hijosH1 = new ListaDoblementeEnlazada<Integer>();
+			hijosH1 = new Mylist<Integer>();
 			hijosH1.addFirst(4);
 			hijosH1.addFirst(5);
-			hjsH1 = new ListaDoblementeEnlazada<Integer>();
+			hjsH1 = new Mylist<Integer>();
 			for (Position<Integer> n : T.children(h1)) {
 				hjsH1.addLast(n.element());
 			}
@@ -852,7 +854,7 @@ public class TreeTest {
 			fail("root() no debería lanzar la excepción EmptyTreeException para un árbol no vacío");
 		} catch (InvalidOperationException e1) {
 			fail("createRoot() no debería lanzar la excepción InvalidOperationException para un árbol vacío.");
-		} catch (EmptyListException e1){fail("los métodos first() o last() no debería lanzar la excepción EmptyListException para una Lista con elementos [�PROBLEMA EN TDALISTA]");}
+		} catch (EmptyListException e1){fail("los métodos first() o last() no debería lanzar la excepción EmptyListException para una Lista con elementos [ PROBLEMA EN TDALISTA]");}
 
 	}
 
@@ -931,13 +933,13 @@ public class TreeTest {
 			T.addAfter(h1, h2, 5);
 			chequearPadre(T.root());
 			// caso de prueba para los hijos de root
-			PositionList<Integer> hijosRoot = new ListaDoblementeEnlazada<Integer>();
+			PositionList<Integer> hijosRoot = new Mylist<Integer>();
 			hijosRoot.addFirst(2);
 			hijosRoot.addFirst(7);
 			hijosRoot.addFirst(3);
 			hijosRoot.addFirst(6);
 			hijosRoot.addFirst(9);
-			PositionList<Integer> hijos = new ListaDoblementeEnlazada<Integer>();
+			PositionList<Integer> hijos = new Mylist<Integer>();
 			for (Position<Integer> n : T.children(T.root())) {
 				hijos.addFirst(n.element());
 			}
@@ -951,10 +953,10 @@ public class TreeTest {
 
 			}
 			// caso de prueba para los hijos de h1
-			hijosH1 = new ListaDoblementeEnlazada<Integer>();
+			hijosH1 = new Mylist<Integer>();
 			hijosH1.addFirst(5);
 			hijosH1.addFirst(4);
-			hjsH1 = new ListaDoblementeEnlazada<Integer>();
+			hjsH1 = new Mylist<Integer>();
 			for (Position<Integer> n : T.children(h1)) {
 				hjsH1.addLast(n.element());
 			}
@@ -972,7 +974,7 @@ public class TreeTest {
 			fail("root() no debería lanzar la excepción EmptyTreeException para un árbol no vacío");
 		} catch (InvalidOperationException e1) {
 			fail("createRoot() no debería lanzar la excepción InvalidOperationException para un árbol vacío.");
-		} catch (EmptyListException e1){fail("los métodos first() o last() no debería lanzar la excepción EmptyListException para una Lista con elementos [�PROBLEMA EN TDALISTA]");}
+		} catch (EmptyListException e1){fail("los métodos first() o last() no debería lanzar la excepción EmptyListException para una Lista con elementos [ PROBLEMA EN TDALISTA]");}
 
 	}
 
@@ -1101,7 +1103,7 @@ public class TreeTest {
 			T.removeInternalNode(raiz);
 			raiz=T.parent(hijo);
 			fail("El método parent debería haber lanzado la excepción BoundaryViolationException al intentar eliminar la raíz del árbol.");
-		}catch(InvalidPositionException e){fail("El método removeInternalNode no debería lanzar esta excepción al intentar eliminar la raíz de un árbol cuando esta tiene un s�lo hijo.");
+		}catch(InvalidPositionException e){fail("El método removeInternalNode no debería lanzar esta excepción al intentar eliminar la raíz de un árbol cuando esta tiene un s lo hijo.");
 	    }catch(BoundaryViolationException e){}
 		// Raiz sin hijos.
 		try {
@@ -1140,7 +1142,7 @@ public class TreeTest {
 				fail("children() no debería lanzar la excepción InvalidPositionException para una posición válida.");
 		}
 		// Intento eliminar nodos internos.
-		lista = new ListaDoblementeEnlazada<Integer>();
+		lista = new Mylist<Integer>();
 		for (i = 1; i <= 12; i++)
 			lista.addLast(i);
 		chequearHijosNiveles2(lista);
@@ -1151,7 +1153,7 @@ public class TreeTest {
 				pos = it.next();
 			T.removeInternalNode(pos);
 			chequearPadre(T.root());
-			lista = new ListaDoblementeEnlazada<Integer>();
+			lista = new Mylist<Integer>();
 			for (i = 1; i <= 4; i++)
 				lista.addLast(i);
 			p1 = lista.last();
@@ -1197,7 +1199,7 @@ public class TreeTest {
 					.equals(3));
 			T.removeInternalNode(pos);
 			chequearPadre(T.root());
-			lista = new ListaDoblementeEnlazada<Integer>();
+			lista = new Mylist<Integer>();
 			lista.addLast(1);
 			lista.addLast(6);
 			lista.addLast(7);
@@ -1212,7 +1214,7 @@ public class TreeTest {
 			fail("root() no debería lanzar la excepción EmptyTreeException para un árbol no vacío.");
 		} catch (BoundaryViolationException e) {
 			fail("prev() no debería lanzar la excepción BoundaryViolationException con una posición .");
-		} catch (EmptyListException e1){fail("los métodos first() o last() no debería lanzar la excepción EmptyListException para una Lista con elementos [�PROBLEMA EN TDALISTA]");}
+		} catch (EmptyListException e1){fail("los métodos first() o last() no debería lanzar la excepción EmptyListException para una Lista con elementos [ PROBLEMA EN TDALISTA]");}
 
 	}
 
@@ -1265,7 +1267,7 @@ public class TreeTest {
 
 		T = getTree();
 		cargarArbol2(T);
-		lista = new ListaDoblementeEnlazada<Position<Integer>>();
+		lista = new Mylist<Position<Integer>>();
 		try {
 			nodosEnNivel(T.root(), 1, 1, lista);
 			it = lista.iterator();
@@ -1291,7 +1293,7 @@ public class TreeTest {
 		}
 		// Elimino todos los nodos del nivel 1
 		try {
-			lista = new ListaDoblementeEnlazada<Position<Integer>>();
+			lista = new Mylist<Position<Integer>>();
 			nodosEnNivel(T.root(), 1, 1, lista);
 			it = lista.iterator();
 			while (it.hasNext())
@@ -1315,7 +1317,7 @@ public class TreeTest {
 		}
 
 		try {
-			lista = new ListaDoblementeEnlazada<Position<Integer>>();
+			lista = new Mylist<Position<Integer>>();
 			nodosEnNivel(T.root(), 1, 1, lista);
 			it = lista.iterator();
 			while (it.hasNext())
@@ -1450,7 +1452,7 @@ public class TreeTest {
 		Position<Integer> p;
 		int el = 0;
 		Iterator<Integer> it = lista.iterator();
-		Queue<Position<Integer>> cola = new ArrayQueue<Position<Integer>>();
+		Queue<Position<Integer>> cola = new ColaConArreglo<Position<Integer>>();
 		Iterator<Position<Integer>> hijos = null;
 		try {
 			p = T.root();
