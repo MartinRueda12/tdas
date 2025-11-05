@@ -79,7 +79,7 @@ public interface BinaryTree<E> extends GTTree<E>
 
 	public void removeNode(Position<E> p) throws InvalidPositionException;
 	
-	 public void createRoot(E elem) throws InvalidOperationException;
+	 public void createRoot(E elem) throws InvalidOperationException, InvalidOperationException;
 	
 	
 }
