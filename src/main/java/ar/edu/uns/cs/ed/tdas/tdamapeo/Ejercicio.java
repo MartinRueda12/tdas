@@ -59,42 +59,15 @@ public class Ejercicio {
 		chars.addLast('d');
 		chars.addLast('e');
 		chars.addLast('f');
+		
 		Map<Character,Integer> ret = new Ejercicio().rep(chars);
 		
 		for(Entry<Character,Integer> a: ret.entries()) {
 			 System.out.print("(" + a + ")" + " ");
 		}
-		        /*System.out.println("--- INICIANDO PRUEBA DEL MÉTODO ---");
-
-		        // -----------------------------------------------------------------
-		        // 1. ARRANGE: Preparamos los datos de entrada
-		        // -----------------------------------------------------------------
-
-		     
-		        Map<Integer, Integer> mapeoNotasParcial1 = new TDAMapeo<>();
-		        mapeoNotasParcial1.put(101, 8);  // Coincide LU, distinta nota -> DEBE ESTAR EN LA LISTA
-		        mapeoNotasParcial1.put(102, 6);  // Coincide LU, misma nota -> NO DEBE ESTAR
-		        mapeoNotasParcial1.put(103, 9);  // LU solo existe en M1 -> NO DEBE ESTAR
-
-		      
-		        Map<Integer, Integer> mapeoNotasRecuperatorio = new TDAMapeo<>();
-		        mapeoNotasRecuperatorio.put(101, 7);  // Coincide LU, distinta nota -> DEBE ESTAR EN LA LISTA
-		        mapeoNotasRecuperatorio.put(102, 6);  // Coincide LU, misma nota -> NO DEBE ESTAR
-		        mapeoNotasRecuperatorio.put(103, 9);  // LU solo existe en M2 -> NO DEBE ESTAR
-		        	
-		        System.out.println("\nDatos de Entrada:");
-		        System.out.println("Mapeo M1 (Parcial 1): " + mapeoNotasParcial1.toString());
-		        System.out.println("Mapeo M2 (Recuperatorio): " + mapeoNotasRecuperatorio.toString());
-
-		        PositionList<Pair<Entrada<Integer,Integer>,Entrada<Integer,Integer>>>p1 = faga(mapeoNotasParcial1,mapeoNotasRecuperatorio );
-		        System.out.println(p1.size());
-		     
-		        for(Pair<Entrada<Integer,Integer>,Entrada<Integer,Integer>> a : p1) {
-		        	System.out.println(a.toString() + " " + a.toString());
-		        }
-		        
-		    }*/
-		
+		   
+		Integer pepe=ret.get('x');
+		System.out.println(pepe);
 	}
 }
 

@@ -93,37 +93,7 @@ public class Ejercicios<E> {
 		}
 		return cant;
 	}
-	
-	/*public Map<Character,Integer> vocales(Tree<Character> t){
-		Map<Character,Integer> ret = new TDAMapeo();
-		if(t.isInternal(t.root())) {
-			if(esVocal(t.root().element())) {
-				ret.put(t.root().element(), 1);
-			}
-			preOr(t.root(),t,ret);
-		}
-		return ret;
-	}
-	private boolean esVocal(char a) {
-		return a == 'a' || a =='e' || a=='i' || a =='o' || a =='u';
-	}
-	private void preOr(Position<Character> p, Tree<Character> t, Map<Character,Integer> m) {
-		boolean enc = false;
-		Iterator<Character> it = m.keys().iterator();
-		for(Position<Character> pos : t.children(p)) {
-			while(!enc && it.hasNext()) {
-				if(it.next().equals(pos.element())) {
-					enc=true;
-					m.put(pos.element(), m.get(pos.element())+1);
-				}
-			}
-			if(t.isInternal(pos) && !enc && esVocal(pos.element())) m.put(pos.element(), 1);
-			//enc=false;
-			preOr(pos,t,m);
-		}
-			
-		
-	}*/
+
 	public static void main(String[]arg) {
 		Ejercicios<Character > ej = new Ejercicios();
 		
@@ -145,4 +115,6 @@ public class Ejercicios<E> {
 			System.out.print("(" + most + ")" + ",");
 		}
 	}
+	
+	
 }

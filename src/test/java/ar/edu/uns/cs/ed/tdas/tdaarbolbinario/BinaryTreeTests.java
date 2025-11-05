@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import ar.edu.uns.cs.ed.tdas.excepciones.*;
 import ar.edu.uns.cs.ed.tdas.Position;
+import ar.edu.uns.cs.ed.tdas.tdaarbol.*;
 
 /**
  * Tester desarrollado con JUnit 4 para la estructura BinaryTree.
@@ -39,7 +40,7 @@ public class BinaryTreeTests {
 	 */
 	@Before
 	public void setUp() {
-		binaryTree = new TDAArbol<Object>(); // cambiar esta línea para
+		binaryTree = new TDAArbolBinario(); // cambiar esta línea para
 														// probar distintas
 														// implementaciones
 		o1 = new Object();

@@ -1,6 +1,8 @@
 package ar.edu.uns.cs.ed.tdas.tdaarbolbinario;
 
 import ar.edu.uns.cs.ed.tdas.Position;
+import ar.edu.uns.cs.ed.tdas.excepciones.InvalidOperationException;
+import ar.edu.uns.cs.ed.tdas.excepciones.InvalidPositionException;
 import ar.edu.uns.cs.ed.tdas.tdaarbol.GTTree;
 
 /**
@@ -74,6 +76,11 @@ public interface BinaryTree<E> extends GTTree<E>
 	 * @throws InvalidPositionException si la posición pasada por parámetro es inválida o el árbol está vacío, o v no corresponde a una hoja.
 	 */
 	public void attach(Position<E> r, BinaryTree<E> T1, BinaryTree<E> T2);
+
+	public void removeNode(Position<E> p) throws InvalidPositionException;
+	
+	 public void createRoot(E elem) throws InvalidOperationException;
+	
 	
 }
 

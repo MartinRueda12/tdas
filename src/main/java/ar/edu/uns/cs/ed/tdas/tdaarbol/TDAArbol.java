@@ -293,7 +293,7 @@ public class TDAArbol<E> implements Tree<E> {
 		}
 		return l.iterator();
 	}
-	
+
 	private TNodo<E> checkPosition(Position<E> p)throws InvalidPositionException{
         TNodo<E> n;
         if(isEmpty() || p==null){
@@ -382,7 +382,36 @@ public class TDAArbol<E> implements Tree<E> {
 			}
 		}
 	}
-	
+	public boolean eliminarUltimoHijo(Position<E> p)throws InvalidPositionException{
+		if(p == null) throw new  InvalidPositionException("pe");
+		try {
+			 TNodo<E> nodo = checkPosition(p);
+			 if(nodo == root) throw new  InvalidPositionException("pe");
+			 TNodo<E> padre = nodo.getPadre();
+			 PositionList<TNodo<E>> lista_padre = padre.getHijos();
+			 Position<TNodo<E>> ult = lista_padre.last();
+			 boolean ultimo = ult.element() == nodo;
+			 if(ultimo) {
+				 lista_padre.remove(ult);
+				 nodo.setPadre(null);
+				 if(!nodo.getHijos().isEmpty()) {
+					 Iterator<Position<TNodo<E>>> it = nodo.getHijos().positions().iterator();
+					 while(it.hasNext()) {
+						 Position<TNodo<E>> rec = it.next();
+						 rec.element().setPadre(padre);
+						 lista_padre.addLast(rec.element());
+						 nodo.getHijos().remove(rec);
+					 }
+				 }
+				 size--;
+			 }
+			 return ultimo;
+		}catch(InvalidPositionException a) {
+			a.printStackTrace();
+			return false;
+		}
+		
+	}
 	public static void main(String[]arg) {
 		TDAArbol<Character> arbol = new TDAArbol();
 		
@@ -390,39 +419,14 @@ public class TDAArbol<E> implements Tree<E> {
 		Position<Character> b = arbol.addLastChild(arbol.root(),'b');
 		
 		Position<Character> c = arbol.addLastChild(b,'c');
-		Position<Character> m = arbol.addLastChild(c,'m');
-		arbol.addLastChild(m, 'k');
-		
 		Position<Character> d = arbol.addLastChild(b,'d');
-		arbol.addLastChild(d, 'e');
-		Position<Character> f = arbol.addLastChild(d, 'f');
-		arbol.addLastChild(f, 'i');
-		arbol.addLastChild(d, 'h');
-		System.out.println(f);
-		Iterator<Position<Character>> it = arbol.covertirAHoja(arbol.root());
-		
-		System.out.println("posOR");
-		while(it.hasNext()) {
-			System.out.print(it.next().element() + " ");
+		Position<Character> e = arbol.addLastChild(b,'e');
+		arbol.addLastChild(e,'f');
+		arbol.addLastChild(e,'g');
+		System.out.println(arbol.eliminarUltimoHijo(e));
+		for(Position<Character> ver : arbol.children(b)) {
+			System.out.print(ver.element() + " ");
 		}
 		
-		/*arbol.addLastChild(cuatro,'c');
-		arbol.addLastChild(cuatro,'c');
-		Position<Character> cinco =arbol.addLastChild(cuatro,'d');
-		
-		
-		arbol.addLastChild(cinco, 'a');
-		
-		
-		System.out.println("PreOrden");
-		for(Character a : arbol) {
-			System.out.print(a + " ");
-		}
-		
-		System.out.println();
-		System.out.println("PostOrden");
-		while(it.hasNext()) {
-			System.out.print(it.next().element() + " ");
-		}*/
 	}
 }

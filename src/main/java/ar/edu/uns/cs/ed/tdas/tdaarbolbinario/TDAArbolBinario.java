@@ -1,7 +1,7 @@
 package ar.edu.uns.cs.ed.tdas.tdaarbolbinario;
 
 import java.util.Iterator;
-
+import ar.edu.uns.cs.ed.tdas.tdaarbol.GTTree;
 import ar.edu.uns.cs.ed.tdas.Entry;
 import ar.edu.uns.cs.ed.tdas.Position;
 import ar.edu.uns.cs.ed.tdas.excepciones.*;
@@ -12,7 +12,7 @@ import ar.edu.uns.cs.ed.tdas.tdamapeo.Map;
 import ar.edu.uns.cs.ed.tdas.tdamapeo.TDAMapeo;
 
 public class TDAArbolBinario<E> implements BinaryTree<E> {
-	protected BNodo<E> root = null;
+	   protected BNodo<E> root = null;
 	   protected int size = 0;
 
 	   public int size() {
@@ -276,6 +276,32 @@ public class TDAArbolBinario<E> implements BinaryTree<E> {
 		   ret.put(root.element(), 1);
 		   postOrM(root,ret);
 		   return ret;
+	   }
+	   public void eliminarDerecho() throws EmptyTreeException, InvalidOperationException {
+		   if(size==0) throw new  EmptyTreeException("Arbol vacio");
+		   if(root.getDerecho()== null) throw new InvalidOperationException("No hay lado derecho en el arbol");
+		   
+		   posOrDerecho(root.getDerecho());
+	   }
+	   private void posOrDerecho(BNodo<E> p) {
+		   if(p!= null) {
+			   BNodo<E> padre = p.getPadre();
+			   if(p.getDerecho()!= null) {
+				   posOrDerecho(p.getDerecho());
+			   }
+			   if(p.getIzquierdo()!=null) {
+				   posOrDerecho(p.getIzquierdo());
+			   }
+			   
+			   if(padre.getIzquierdo() == p) 
+				   padre.setIzquierdo(null);
+			   else
+				   padre.setDerecho(null);
+			   p.setPadre(null);
+			   p.setElemento(null);
+			   size--;
+			   
+		   }
 	   }
 	   private void postOrM(BNodo<E> p, Map<E,Integer> m) {
 		   if(p!=null) {
