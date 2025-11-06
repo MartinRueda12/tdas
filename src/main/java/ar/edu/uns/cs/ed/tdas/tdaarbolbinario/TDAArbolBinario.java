@@ -200,49 +200,30 @@ public class TDAArbolBinario<E> implements BinaryTree<E> {
 	      }
 	   }
 
-	   public void removeNode(Position<E> r) throws InvalidPositionException , InvalidOperationException {
-	     if(r==null) throw new InvalidPositionException("Posicion nula");
-	     if(size==0) throw new InvalidOperationException("El arbol esta vacio");
-	     try {
+	   public E removeNode(Position<E> r) throws InvalidPositionException {
+	     if(r==null || size==0) throw new InvalidPositionException("Posicion nula o El arbol esta vacio");
+	     
 	    	 BNodo<E> chk = checkPosition(r);
-	    	 BNodo<E> aux =null;
-	    	 if(chk == root) {
-	    		 if(root.getDerecho()!=null && root.getIzquierdo() !=null) throw new InvalidOperationException("El nodo raiz tiene mas de un hijo");
+	    	 if(chk.getIzquierdo()!=null && chk.getDerecho()!=null)
+	    		 throw new InvalidPositionException("El nodo tiene mas de un hijo");
+	    	 BNodo<E> child =(chk.getIzquierdo()!=null ? chk.getIzquierdo() : chk.getDerecho());
+
+	    	 if(child!=null)
+	    		 child.setIzquierdo(chk.getPadre());
+	    	 if(chk==root)
+	    		 root=child;
+	    	 else {
+	    		 BNodo<E> padre = chk.getPadre();
+	    		 if(chk==padre.getIzquierdo())
+	    			 padre.setIzquierdo(child);
 	    		 else
-	    			 if(root.getDerecho()!=null) {
-	    				 aux=root.getDerecho();
-	    				 root.setDerecho(null);
-	    				 aux.setPadre(null);
-	    				 aux=root;
-	    			 }else if(root.getIzquierdo()!=null && root.getDerecho()==null) {
-	    					aux=root.getIzquierdo();
-	    					root.setIzquierdo(null);
-	    					 aux.setPadre(null);
-	    					 root=aux;
-	    			}else
-	    				root=null;	 
-	    	 }else {
-	    		 aux = chk.getPadre();
-	    		 
-	    		 if(aux.getDerecho() == chk) {
-	    			 /*if(aux.getIzquierdo()!= null && chk.getIzquierdo()!=null)
-	    				 throw new InvalidOperationException("El nodo  tiene mas de un hijo");*/
-	    			 chk.setPadre(null);
-	    			 aux.setIzquierdo(chk.getIzquierdo());
-	    			 aux.setDerecho(chk.getDerecho());
-	    		 }else {
-	    			 /*if(aux.getDerecho()!= null  && chk.getDerecho()!=null)
-	    				 throw new InvalidOperationException("El nodo  tiene mas de un hijo");*/
-	    			 chk.setPadre(null);
-	    			 aux.setIzquierdo(chk.getIzquierdo());
-	    			 aux.setDerecho(chk.getDerecho());
-	    		 }
-	    		 
+	    			 padre.setDerecho(child);
 	    	 }
+	    	 E ret = chk.element();
 	    	 size--;
-	     }catch(InvalidPositionException e) {
-	    	 e.printStackTrace();
-	     }
+	    	 chk.setPadre(chk);
+	    	 return ret;
+	     
 	   }
 
 	   public Dictionary<E, E> dic() {
@@ -333,6 +314,8 @@ public class TDAArbolBinario<E> implements BinaryTree<E> {
 	            return null;
 	         }
 	      }
+	   
+
 		  public static void main(String[] args) {
 		        // Creamos el árbol del ejemplo anterior
 		        TDAArbolBinario<Integer> miArbol = new TDAArbolBinario<>();

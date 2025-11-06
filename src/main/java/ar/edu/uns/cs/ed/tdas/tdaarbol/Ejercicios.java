@@ -3,6 +3,7 @@ import java.util.Iterator;
 
 import ar.edu.uns.cs.ed.tdas.Entry;
 import ar.edu.uns.cs.ed.tdas.Position;
+import ar.edu.uns.cs.ed.tdas.excepciones.InvalidPositionException;
 import ar.edu.uns.cs.ed.tdas.tdalista.*;
 import ar.edu.uns.cs.ed.tdas.tdamapeo.*;
 
@@ -93,11 +94,31 @@ public class Ejercicios<E> {
 		}
 		return cant;
 	}
-
+	 public  int sizeSubArbol(Tree<E> t,Position<E> p) throws InvalidPositionException{
+		 if(p == null) throw new InvalidPositionException("Posicion nula");
+		 return sizePreOrd(p,t);
+	 }
+	   private int sizePreOrd(Position<E> n, Tree<E> t) {
+		   int cant=1;
+		   for(Position<E> rec : t.children(n)) {
+			   cant=sizePreOrd(rec,t)+cant;
+		   }
+		   return cant;
+	   }
 	public static void main(String[]arg) {
 		Ejercicios<Character > ej = new Ejercicios();
+		TDAArbol<Character> arbol = new TDAArbol();
 		
-		Tree<Character> arbol = new TDAArbol();
+		arbol.createRoot('a');
+		Position<Character> b = arbol.addLastChild(arbol.root(),'b');
+		
+		Position<Character> c = arbol.addLastChild(b,'c');
+		Position<Character> d = arbol.addLastChild(b,'d');
+		Position<Character> e = arbol.addLastChild(b,'e');
+		arbol.addLastChild(e,'f');
+		arbol.addLastChild(e,'g');
+		System.out.print(ej.sizeSubArbol(arbol, e));
+		/*Tree<Character> arbol = new TDAArbol();
 		
 		arbol.createRoot('a');
 		arbol.addLastChild(arbol.root(), 'a');
@@ -113,7 +134,7 @@ public class Ejercicios<E> {
 		
 		for(Entry<Character,Integer> most : mp.entries()){
 			System.out.print("(" + most + ")" + ",");
-		}
+		}*/
 	}
 	
 	

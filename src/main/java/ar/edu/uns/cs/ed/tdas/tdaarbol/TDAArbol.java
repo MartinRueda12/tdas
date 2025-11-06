@@ -412,6 +412,21 @@ public class TDAArbol<E> implements Tree<E> {
 		}
 		
 	}
+	
+	   public int sizeSubArbol(Position<E> p) throws InvalidPositionException{
+		   if(p == null) throw new InvalidPositionException("Posicion nula");
+		   TNodo<E> chk= checkPosition(p);
+		   return sizePreOrd(chk);
+	   }
+	   private int sizePreOrd(TNodo<E> n) {
+		   int cant=1;
+		   if(!n.getHijos().isEmpty()) {
+			   for(TNodo<E> rec : n.getHijos()) {
+				   cant=sizePreOrd(rec)+cant;
+			   }
+		   }
+		   return cant;
+	   }
 	public static void main(String[]arg) {
 		TDAArbol<Character> arbol = new TDAArbol();
 		
@@ -423,10 +438,11 @@ public class TDAArbol<E> implements Tree<E> {
 		Position<Character> e = arbol.addLastChild(b,'e');
 		arbol.addLastChild(e,'f');
 		arbol.addLastChild(e,'g');
-		System.out.println(arbol.eliminarUltimoHijo(e));
-		for(Position<Character> ver : arbol.children(b)) {
-			System.out.print(ver.element() + " ");
-		}
+		//System.out.println(arbol.eliminarUltimoHijo(e));
+		//for(Position<Character> ver : arbol.children(b)) {
+			//System.out.print(ver.element() + " ");
+		//}
+		System.out.print(arbol.sizeSubArbol(e));
 		
 	}
 }
