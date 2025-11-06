@@ -10,6 +10,8 @@ import ar.edu.uns.cs.ed.tdas.excepciones.InvalidPositionException;
 import ar.edu.uns.cs.ed.tdas.tdamapeo.Map;
 import ar.edu.uns.cs.ed.tdas.tdamapeo.TDAMapeo;
 import ar.edu.uns.cs.ed.tdas.tdaarbol.*;
+import ar.edu.uns.cs.ed.tdas.tdadiccionario.Dictionary;
+import ar.edu.uns.cs.ed.tdas.tdadiccionario.TDADiccionario;
 public class Ejercicios<E> {
 	
 	  public Map<E,Integer> mapeo(BinaryTree<E> t) throws EmptyTreeException {
@@ -104,6 +106,7 @@ public class Ejercicios<E> {
 			}
 		}
 	  public static void main(String[] args) {
+		  Ejercicios<Integer> ver = new Ejercicios();
 	        // Creamos el árbol del ejemplo anterior
 	        TDAArbolBinario<Integer> miArbol = new TDAArbolBinario<>();
 	        miArbol.createRoot(1);
@@ -117,19 +120,45 @@ public class Ejercicios<E> {
 	        miArbol.addRight(tresb, 6);
 	        miArbol.addLeft(dos, 1);
 	        miArbol.addRight(dos, 5);
+	        Dictionary<Integer,Integer> de = ver.fueraDic(miArbol);
 	       
-	       
-	        for(Position<Integer> gh : miArbol.positions()){
-	        	  System.out.print(gh.element() + " ");
+	        for(Entry<Integer,Integer> gh: de.entries()){
+	        	  System.out.print("(" + gh + ")");
 	        }
 	       
-	        System.out.println(miArbol.size());
+	       /* System.out.println(miArbol.size());
 	        System.out.println();
 	        eliminarLadoDerecho(miArbol);
 	        System.out.println(miArbol.size());
 	        System.out.println();
 	        for(Position<Integer> gh : miArbol.positions()){
 	        	  System.out.print(gh.element() + " ");
-	        }
+	        }*/
+	  }
+	  
+	  public Dictionary<E,E> fueraDic(BinaryTree<E> t)throws EmptyTreeException, InvalidOperationException{
+		  if(t.size()==0) throw new EmptyTreeException("Arbol Vacio");
+		  if(t==null) throw new InvalidOperationException("NULOOOO");
+		  Dictionary<E,E> toRet= new TDADiccionario();
+		  if(t.hasLeft(t.root())) {
+			  toRet.insert(t.root().element(), t.left(t.root()).element());
+			  rec(toRet,t.left(t.root()),t);
+		  }
+		  if(t.hasRight(t.root())) {
+			  toRet.insert(t.root().element(), t.right(t.root()).element());
+			  rec(toRet,t.right(t.root()),t);
+		  }
+		  return toRet;
+		  
+	  }
+	  private void rec(Dictionary<E,E> d, Position<E> p,BinaryTree<E> t) {
+		  if(t.hasLeft(p)) {
+			  d.insert(p.element(), t.left(p).element());
+			  rec(d,t.left(p),t);
+		  }
+		  if(t.hasRight(p)){
+			  d.insert(p.element(), t.right(p).element());
+			  rec(d,t.right(p),t);
+		  } 
 	  }
 }

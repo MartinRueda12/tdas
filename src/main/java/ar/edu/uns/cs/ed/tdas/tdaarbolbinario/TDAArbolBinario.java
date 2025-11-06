@@ -321,16 +321,66 @@ public class TDAArbolBinario<E> implements BinaryTree<E> {
 		        TDAArbolBinario<Integer> miArbol = new TDAArbolBinario<>();
 		        miArbol.createRoot(1);
 		        Position<Integer> tres = miArbol.addLeft(miArbol.root(), 3);
-		        Position<Integer> cuatro =miArbol.addRight(miArbol.root(), 4);
+		        //Position<Integer> cuatro =miArbol.addRight(miArbol.root(), 4);
 		        Position<Integer> siete = miArbol.addLeft(tres, 7);
-		        Position<Integer> cinco = miArbol.addLeft(cuatro, 7);
-		        miArbol.addRight(cinco, 3);
+		        //Position<Integer> cinco = miArbol.addLeft(cuatro, 7);
+		       // miArbol.addRight(cinco, 3);
 		        miArbol.addLeft(siete, 2);
-		        Map<Integer,Integer> dev = miArbol.devM();
+		        //Dictionary<Integer,Integer> dev = miArbol.retDic();
 		        //System.out.print(dev.size());
-		        for(Entry<Integer,Integer> mos : dev.entries()) {
-		        	System.out.print("(" + mos + ")" + " ");
+		        miArbol.completarDerechoPos(1);;
+		        for(Integer a: miArbol) {
+		        	System.out.print(a + " ");
 		        }
+		        /*for(Entry<Integer,Integer> mos : dev.entries()) {
+		        	System.out.print("(" + mos + ")" + " ");
+		        }*/
+		  }
+		  
+		  /*public Dictionary<E,E> retDic()throws EmptyTreeException {
+			  if(size==0)throw new EmptyTreeException("Arbol Vacio");
+			  
+			  Dictionary<E,E> toRet= new TDADiccionario();
+			  if(root.getDerecho()!=null) {
+				  toRet.insert(root.element(), root.getDerecho().element());
+			  	  recDic(toRet,root.getDerecho());}
+			  if(root.getIzquierdo()!=null) {
+				  toRet.insert(root.element(), root.getIzquierdo().element());
+			  	  recDic(toRet,root.getIzquierdo());}
+			  return toRet;
+		  }*/
+		  
+		  /*private void recDic(Dictionary<E,E> d, BNodo<E> b) {
+			  if(b.getDerecho()!=null) {
+				  d.insert(b.element(), b.getDerecho().element());
+				  recDic(d,b.getDerecho());
+			  }
+			  if(b.getIzquierdo()!=null) {
+				  d.insert(b.element(), b.getIzquierdo().element());
+				  recDic(d,b.getIzquierdo());
+			  }
+			  
+		  */
+		  public void completarDerechoPos(E e) throws EmptyTreeException {
+			  if(size==0)throw new EmptyTreeException("arbol vacio");
+			  compOr(e,root);
+		  }
+		  private void compOr(E e, BNodo<E> b) {
+			  if(b!=null) {
+				  if(b.getIzquierdo()!=null) {
+					  compOr(e,b.getIzquierdo());
+				  }
+				  if(b.getDerecho()!=null) {
+					  compOr(e,b.getDerecho());
+				  }
+				  
+				  if(b.getDerecho()==null) {
+					  BNodo<E> add = new BNodo(e,b,null,null);
+					  b.setDerecho(add);
+				  }
+					  
+				  
+			  }
 		  }
 }
 	   
